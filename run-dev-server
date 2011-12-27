@@ -2,5 +2,5 @@
 
 echo 'Compiling LESS stylesheets...'
 lessc ./less/style.less > ./css/style.css
-echo 'Running development server...'
+echo 'Running development preview server...'
 node ./preview-server.js
