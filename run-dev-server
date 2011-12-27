@@ -1,0 +1,6 @@
+#! /bin/sh
+
+echo 'Compiling LESS stylesheets...'
+lessc ./less/style.less > ./css/style.css
+echo 'Running development server...'
+node ./preview-server.js

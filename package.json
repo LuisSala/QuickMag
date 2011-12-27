@@ -1,0 +1,23 @@
+{
+  "author": "Luis Sala <luis.sala@alfresco.com> (http://alfresco.com)",
+  "name": "QuickZine",
+  "description": "Mobile magazine app for Alfresco.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://luissala@bitbucket.org/luissala/quickzine.git"
+  },
+  "main": "preview-server.js",
+  "engines": {
+    "node": ">=0.4.11"
+  },
+	"directories" : {
+	"lib" : "lib"
+  },
+  "dependencies": {
+	"http-proxy": ">=0.8.0",
+	"less": ">=1.1.6",
+	"express": ">=2.5.2"
+  },
+  "devDependencies": {}
+}
