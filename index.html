@@ -22,7 +22,11 @@
 <body>
   <script type="text/x-handlebars">
     {{#view App.MyView}}
-      <h1>Hello world!</h1>
+      {{#collection contentBinding="App.itemsController"}}
+        {{content.title}}<br/>
+        {{content.description}}<br/>
+        <hr/>
+      {{/collection}}
     {{/view}}
   </script>
 
