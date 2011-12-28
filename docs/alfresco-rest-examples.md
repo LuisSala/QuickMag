@@ -7,9 +7,9 @@
 ### DocLib Containers:
 `    GET http://localhost:8080/alfresco/s/slingshot/doclib/containers/acme
 `
-### Filtered Doclist:
-`    GET http://127.0.0.1:8080/share/service/components/documentlibrary/data/doclist/all/site/acme/documentLibrary/?filter=path&size=50&pos=1&sortAsc=true&sortField=cm%3Aname&view=browse&noCache=1318784482363
+### Documents in a given folder:
+`    GEThttp://localhost:8080/alfresco/s/slingshot/doclib2/doclist/cm:content/site/acme/documentLibrary/News
 `
-### Images Folder:
-`    GET http://127.0.0.1:8080/share/service/components/documentlibrary/data/doclist/all/site/acme/documentLibrary/Images?filter=path&size=50&pos=1&sortAsc=true&sortField=cm%3Aname&view=browse&noCache=1318784792554
+### Getting a specific documents' content using the contentUrl property from above:
+`    GET http://localhost:8080/alfresco/s/api/node/content/workspace/SpacesStore/3a2f5a53-7511-40bc-9cd4-cb9301b63bb1/Alfresco%204%20Delivers%20Cloud-Scale%20Performance%2c%20Social%20Publishing%20and%20Consumer-Like%20UI.html
 `

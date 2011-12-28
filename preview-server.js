@@ -2,6 +2,7 @@ var express = require('express');
 var url = require('url');
 var http = require('http');
 var httpProxy = require('http-proxy');
+var util = require('util');
 
 var app = express.createServer();
 
@@ -24,7 +25,7 @@ console.log('\n========================================\n');
 
 app.use(express.logger());
 
-app.use('/_proxy', function(req, res, next){
+app.use('/_proxy/', function(req, res, next){
 
 	var target = req.url.substring("/".length, req.url.length);
 
@@ -41,20 +42,24 @@ app.use('/_proxy', function(req, res, next){
     	res.write(err);
     	res.end();
   	} else {
-          console.log("PROXY Request: " + url_parts.hostname + ", path: " + url_parts.pathname);
+          console.log("PROXY Request: " + url_parts.hostname + ", port: " + (url_parts.port ? url_parts.port : 80) + ", path: " + url_parts.path);
 
           // Create and configure the proxy.
+
           var proxy = new httpProxy.HttpProxy({
               target:{
-                  host: url_parts.host,
-                  port: url_parts.port,
-                  https: (url_parts.protocol == 'https:')
+                  host: url_parts.hostname,
+                  port: url_parts.port ? url_parts.port : 80,
+                  https: (url_parts.protocol === 'https:')
               }
           });
 
+          //var proxy = new httpProxy.RoutingProxy();
           // Rewrite the URL on the request to remove the /proxy/ prefix.
           // Then pass along to the proxy.
-          req.url = target;
+
+          req.url = url_parts.path;
+          req.headers['host']=url_parts.host;  // Reset the host header to the destination host.
           proxy.proxyRequest(req, res);
 
 	} // end if-else
