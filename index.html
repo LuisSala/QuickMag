@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
+  <title>Alfresco QuickZine</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -20,20 +20,45 @@
   <![endif]-->
 </head>
 <body>
+<div class="container">
   <script type="text/x-handlebars">
-    {{#view App.MyView}}
-      {{#collection contentBinding="App.itemsController"}}
-        {{content.title}}<br/>
-        {{content.description}}<br/>
-        <hr/>
-      {{/collection}}
-    {{/view}}
+
+      <h1>QuickZine</h1>
+      {{#each App.itemsController}}
+        {{#view App.ItemSummaryView contentBinding="this"}}
+            <h3>{{content.title}}</h3>
+            {{content.description}}<br/>
+            <hr/>
+        {{/view}}
+      {{/each}}
+
+
   </script>
 
+    <script type="text/x-handlebars" data-template-name="item-modal">
+
+            <div class="modal-header">
+              <a href="#" class="close">&times;</a>
+              <h3>{{content.title}}</h3>
+            </div>
+            <div class="modal-body">
+              <p>{{bind content.contentBody}}</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn primary">Tweet</a>
+              <a href="#" class="btn secondary">Evernote</a>
+            </div>
+
+    </script>
+</div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
+
+  <script src="js/libs/transformjs.1.0.beta.2.js"></script>
   <script src="js/libs/ember-0.9.3.js"></script>
-  <script src="js/libs/ember-data.js"></script>
+  <script src="js/libs/bootstrap/bootstrap-modal.js"></script>
+  <!--script src="js/libs/ember-touch.js"></script-->
+  <!--script src="js/libs/ember-data.js"></script-->
   <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 var App = Em.Application.create({
 
     ready: function() {
+        this._super();
         App.itemsController.loadItems();
     }
 
@@ -10,10 +11,10 @@ App.CONFIG = {
     alfresco: {
         username: 'admin',
         password: 'admin',
-        host: 'localhost',
+        host: 'x.local',
         port: 8080,
         protocol: 'http',
-        service_base_path: '/alfresco/s',
+        service_base_path: '/alfresco/s', // use the form '/alfresco/service
         site_name: 'acme',
         content_folder: 'News', // Folder name under the corresponding site docLib
         content_model: 'cm:content'
@@ -112,32 +113,89 @@ App.itemsController  = Em.ArrayController.create({
             dataType: 'json',
             success: function(data){
 
-                console.log(data.items);
+                console.log('Fetched Items: '+data.items.length);
 
                 for (var i=0; i< data.items.length; i++) {
                     _self.pushObject(App.models.Item.create({data: data.items[i]}));
                 }
             }
         });
-        /*
-        $.getJSON(url, function(data){
-            console.log(data.items);
 
-            for (var item in data.items) {
-                _self.pushObject(App.models.Item.create({data:item}));
-            }
-        });
-        */
-    } // end find()
+    } // end loadItems()
 
 });
 
+App.itemModalViewController = Em.Object.create({
+    view: null,
+
+    showView: function (content) {
+        var v = this.get('view');
+        if (!v) {
+            v = App.ItemModalView.create();
+            this.set('view', v);
+            v.append();
+        }
+        v.set('content', content);
+        //v.$().modal('show');
+        v.show();
+    }
+});
+
+window.EmExt = {};
+
+EmExt.ModalView = Em.View.extend({
+
+    init: function(){
+        this._super();
+        this.modal({});
+    },
+
+    toggle: function(){
+        this.modal('toggle');
+    },
+
+    show: function(){
+        this.modal('show');
+    },
+
+    hide: function(){
+        this.modal('hide');
+    },
+
+    modal: function(cmd) {
+        var elementId = '#'+this.get('elementId');
+        // We delay execution until the next RunLoop tick to make sure the element has been inserted into the DOM. Otherwise, calling a modal method will fail.
+        Em.run.next(function(){
+            console.log(elementId);
+            $(elementId).modal(cmd);
+        });
+
+    }
+});
 
 /*
  * Views
  */
-App.MyView = Em.View.extend({
-  mouseDown: function() {
-    window.alert("hello world!");
-  }
+
+
+App.ItemModalView = EmExt.ModalView.extend({
+    classNames: ['modal', 'hide', 'fade'],
+    templateName: 'item-modal'
+
+});
+
+App.ItemSummaryView = Em.View.extend({
+    click: function() {
+        App.itemModalViewController.showView(this.get('content'));
+    },
+
+    tap: function(){
+        Em.Logger.log("Tap!");
+        this.click();
+    },
+
+    touchStart: function() {
+        console.log("touch");
+        this.click();
+    }
 });
