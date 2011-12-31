@@ -1,3 +1,5 @@
+// TODO Reflow layout on screen orientation change. http://favo.eu/2010/07/detecting-ipad-orientation-using-javascript/
+
 var App = Em.Application.create({
 
     ready: function() {
@@ -9,6 +11,41 @@ var App = Em.Application.create({
 
         v.append();
 
+    }
+
+});
+
+App.utils = SC.Object.create({
+    layoutArray: [6,6,3,6,3,3,3,6],
+    current: 0,
+    nextColumn: function() {
+        var current = this.get('current');
+        var ary = this.get('layoutArray');
+        var next = (current + 1) % ary.length;
+        console.log(next);
+        this.set('current', next);
+        return ary[current];
+    }
+});
+
+App.hashTools = SC.Object.create({
+
+    hash: function (str) {
+        var hash = 0;
+        if (str.length == 0) return hash;
+        for (i = 0; i < str.length; i++) {
+            char = str.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash;
+    },
+
+    randomGuid: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
     }
 
 });
@@ -157,6 +194,10 @@ EmExt.ModalView = Em.View.extend({
         this.modal({
             backdrop: 'static'
         });
+
+        // TODO Attach event handlers for 'shown' and 'hidden' to disable scrolling.
+        // http://jsbin.com/ikuma4/2/edit#source
+        // http://stackoverflow.com/questions/3656592/programmatically-disable-scrolling
     },
 
     didInsertElement: function(){
@@ -205,6 +246,25 @@ App.ItemModalView = EmExt.ModalView.extend({
 
 // TODO Be more discriminating with touches (eg. tell apart a scroll/swipe from a tap.
 App.ItemSummaryView = Em.View.extend({
+    classNameBindings:['columnType'],
+
+    columnType: function() {
+        //var next = 'col'+((Math.abs(App.hashTools.hash(this.getPath('content.id')) % 3)+2));
+        //var next = 'span'+((Math.abs(App.hashTools.hash(this.getPath('content.id')) % 3)+1)*3);
+        //var next = 'span'+App.utils.nextColumn();
+        var next='span5';
+        console.log(next);
+        return next;
+    }.property('content').cacheable(),
+    didInsertElement: function() {
+        var parentEl = this.get('parentView').$();
+        //var parentEl = $('.item-list');
+        var myEl = this.$();
+        console.log(myEl.attr('id'));
+        parentEl.masonry('appended', myEl);
+
+    },
+
     click: function() {
         App.itemModalViewController.showView(this.get('content'));
     },
@@ -215,16 +275,26 @@ App.ItemSummaryView = Em.View.extend({
     }
 });
 
+
+// TODO Switch to Isotope as it might handle layouts more cleanly.
+
 App.ItemListView = Em.View.extend({
     templateName: 'item-list',
-
+    classNames:['item-list centered'],
     // Apply the masonry layout once the element is inserted into the DOM.
     didInsertElement: function() {
+
         var e = this.$();
 
         console.log("masonry: "+e.attr('id'));
         e.masonry({
-            columnWidth: 200
+            itemSelector: '.item',
+            isAnimated: true,
+            isFitWidth: true,
+            columnWidth: 10,
+            animationOptions: {
+                duration: 200
+            }
         });
     } // end didInsertElement()
 });

@@ -1,8 +1,8 @@
-# QuickZine
+# QuickMag
 
 ### Description:
 
-Alfresco QuickZine is a simple example of an HTML5-based mobile publishing app.
+Alfresco QuickMag is a simple example of an HTML5-based mobile publishing app.
 It is developed in JavaScript using the Ember.js framework - http://emberjs.org
 
 ### Features / Problems:

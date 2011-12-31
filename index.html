@@ -22,14 +22,14 @@
 </head>
 <body>
 <div class="container-fluid">
-  <h1>QuickZine</h1>
+  <h1 class="app-name">QuickMag</h1>
   <script type="text/x-handlebars" data-template-name="item-list">
 
       {{#each App.itemsController class="items"}}
-        {{#view App.ItemSummaryView contentBinding="this" class="item col3"}}
-            <h3>{{content.title}}</h3>
-            {{content.description}}<br/>
+        {{#view App.ItemSummaryView contentBinding="this" class="item"}}
+            <h5>{{content.title}}</h5>
             <hr/>
+            <p>{{content.description}}</p>
         {{/view}}
       {{/each}}
 
@@ -43,7 +43,7 @@
               <h3>{{content.title}}</h3>
             </div>
             <div class="modal-body">
-              <p>{{bind content.contentBody}}</p>
+              {{bind content.contentBody}}
             </div>
             <div class="modal-footer">
               <a href="#" class="btn primary">Tweet</a>

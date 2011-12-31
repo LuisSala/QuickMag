@@ -1,19 +1,44 @@
 @import "bootstrap/bootstrap.less";
 
-@gridColumns: 12;
+@gridColumns: 9;
 
-@colBaseWidth: 80px;
+@colBaseWidth: 236px;
 @col1Width: @colBaseWidth;
-@col2Width: @colBaseWidth + 100px;
-@col3Width: @colBaseWidth + 200px;
+@col2Width: @colBaseWidth + 256px;
+@col3Width: @colBaseWidth + 512px;
 @col4Width: @colBaseWidth + 300px;
 @col5Width: @colBaseWidth + 400px;
+
+h1.app-name {
+    font-family: Baskerville-BoldItalic;
+    font-weight: normal;
+    text-shadow: rgba(0, 0, 0, 0.7) 0 -1px 1px;
+    margin-left: 35%;
+    font-size: 50px;
+    color: @grayLight;
+    line-height: @baseline * 3;
+}
 
 /* Masonry only works if items are floated */
 .item {
     float: left;
-    padding: 10px;
+    margin: 5px;
+    padding: 5px;
+    background-color: whiteSmoke;
 }
+
+.item hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+// Capitalize text of Item titles and adjust line spacing.
+h5 {
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.centered { margin: 0 auto; }
 
 .col1 { width: @col1Width; }
 .col2 { width: @col2Width; }
@@ -27,10 +52,15 @@
 .col4 img { max-width: @col4Width; }
 .col5 img { max-width: @col5Width; }
 
+.modal-body {
+    height:320px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
 
 @media all and (orientation:portrait) {
     .container-fluid {
-        min-width: 700px;
+        min-width: 720px;
     }
 }
 
@@ -59,4 +89,25 @@
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
+}
+.masonry,
+.masonry .masonry-brick {
+  -webkit-transition-duration: 0.7s;
+     -moz-transition-duration: 0.7s;
+       -o-transition-duration: 0.7s;
+          transition-duration: 0.7s;
+}
+
+.masonry {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.masonry .masonry-brick {
+  -webkit-transition-property: left, right, top;
+     -moz-transition-property: left, right, top;
+       -o-transition-property: left, right, top;
+          transition-property: left, right, top;
 }
