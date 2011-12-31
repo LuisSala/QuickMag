@@ -2,15 +2,42 @@
 
 @gridColumns: 12;
 
-/* ==== Scroll down to find where to put your styles :) ==== */
+@colBaseWidth: 80px;
+@col1Width: @colBaseWidth;
+@col2Width: @colBaseWidth + 100px;
+@col3Width: @colBaseWidth + 200px;
+@col4Width: @colBaseWidth + 300px;
+@col5Width: @colBaseWidth + 400px;
+
+/* Masonry only works if items are floated */
+.item {
+    float: left;
+    padding: 10px;
+}
+
+.col1 { width: @col1Width; }
+.col2 { width: @col2Width; }
+.col3 { width: @col3Width; }
+.col4 { width: @col4Width; }
+.col5 { width: @col5Width; }
+
+.col1 img { max-width: @col1Width; }
+.col2 img { max-width: @col2Width; }
+.col3 img { max-width: @col3Width; }
+.col4 img { max-width: @col4Width; }
+.col5 img { max-width: @col5Width; }
 
 
 @media all and (orientation:portrait) {
-
+    .container-fluid {
+        min-width: 700px;
+    }
 }
 
 @media all and (orientation:landscape) {
-
+    .container-fluid {
+        min-width: 940px;
+    }
 }
 
 @media screen and (max-device-width: 480px) {

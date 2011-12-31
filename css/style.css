@@ -2468,12 +2468,50 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 }
-/* ==== Scroll down to find where to put your styles :) ==== */
+/* Masonry only works if items are floated */
+.item {
+  float: left;
+  padding: 10px;
+}
+.col1 {
+  width: 80px;
+}
+.col2 {
+  width: 180px;
+}
+.col3 {
+  width: 280px;
+}
+.col4 {
+  width: 380px;
+}
+.col5 {
+  width: 480px;
+}
+.col1 img {
+  max-width: 80px;
+}
+.col2 img {
+  max-width: 180px;
+}
+.col3 img {
+  max-width: 280px;
+}
+.col4 img {
+  max-width: 380px;
+}
+.col5 img {
+  max-width: 480px;
+}
 @media all and (orientation: portrait) {
-  
+  .container-fluid {
+    min-width: 700px;
+  }
 }
 @media all and (orientation: landscape) {
-  
+  .container-fluid {
+    min-width: 940px;
+  }
 }
 @media screen and (max-device-width: 480px) {
   /* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */

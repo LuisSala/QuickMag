@@ -21,12 +21,12 @@
   <![endif]-->
 </head>
 <body>
-<div class="container">
-  <script type="text/x-handlebars">
+<div class="container-fluid">
+  <h1>QuickZine</h1>
+  <script type="text/x-handlebars" data-template-name="item-list">
 
-      <h1>QuickZine</h1>
-      {{#each App.itemsController}}
-        {{#view App.ItemSummaryView contentBinding="this"}}
+      {{#each App.itemsController class="items"}}
+        {{#view App.ItemSummaryView contentBinding="this" class="item col3"}}
             <h3>{{content.title}}</h3>
             {{content.description}}<br/>
             <hr/>
@@ -58,7 +58,8 @@
   <script src="js/libs/transformjs.1.0.beta.2.js"></script>
   <script src="js/libs/ember-0.9.3.js"></script>
   <script src="js/libs/bootstrap/bootstrap-modal.js"></script>
-  <!--script src="js/libs/ember-touch.js"></script-->
+  <script src="js/libs/jquery.masonry.js"></script>
+  <script src="js/libs/ember-touch.js"></script>
   <!--script src="js/libs/ember-data.js"></script-->
   <script src="js/app.js"></script>
 </body>

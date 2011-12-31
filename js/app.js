@@ -3,6 +3,12 @@ var App = Em.Application.create({
     ready: function() {
         this._super();
         App.itemsController.loadItems();
+
+        var v = App.ItemListView.create();
+        this.set('mainView', v);
+
+        v.append();
+
     }
 
 });
@@ -136,18 +142,25 @@ App.itemModalViewController = Em.Object.create({
             v.append();
         }
         v.set('content', content);
-        //v.$().modal('show');
         v.show();
     }
 });
 
 window.EmExt = {};
 
+// TODO Prevent swipe/scrolling of background list when modal is shown.
 EmExt.ModalView = Em.View.extend({
+    elementInserted: false,
 
     init: function(){
         this._super();
-        this.modal({});
+        this.modal({
+            backdrop: 'static'
+        });
+    },
+
+    didInsertElement: function(){
+        this.set('elementInserted', true)
     },
 
     toggle: function(){
@@ -164,11 +177,17 @@ EmExt.ModalView = Em.View.extend({
 
     modal: function(cmd) {
         var elementId = '#'+this.get('elementId');
-        // We delay execution until the next RunLoop tick to make sure the element has been inserted into the DOM. Otherwise, calling a modal method will fail.
-        Em.run.next(function(){
+        // We recursively delay execution until the next RunLoop tick to make sure the element has been inserted into the DOM. Otherwise, calling a modal method will fail.
+        // TODO Find a better way to defer execution of the modal function.
+        var _self = this;
+        if (_self.get('elementInserted')) {
             console.log(elementId);
             $(elementId).modal(cmd);
-        });
+        } else {
+            Em.run.next(function(){
+                _self.modal(cmd);
+            });
+        }
 
     }
 });
@@ -184,18 +203,28 @@ App.ItemModalView = EmExt.ModalView.extend({
 
 });
 
+// TODO Be more discriminating with touches (eg. tell apart a scroll/swipe from a tap.
 App.ItemSummaryView = Em.View.extend({
     click: function() {
         App.itemModalViewController.showView(this.get('content'));
     },
-
-    tap: function(){
+    // TODO Consider using Press gestures instead.
+    tapEnd: function(recognizer){
         Em.Logger.log("Tap!");
         this.click();
-    },
-
-    touchStart: function() {
-        console.log("touch");
-        this.click();
     }
+});
+
+App.ItemListView = Em.View.extend({
+    templateName: 'item-list',
+
+    // Apply the masonry layout once the element is inserted into the DOM.
+    didInsertElement: function() {
+        var e = this.$();
+
+        console.log("masonry: "+e.attr('id'));
+        e.masonry({
+            columnWidth: 200
+        });
+    } // end didInsertElement()
 });
