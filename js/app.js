@@ -321,22 +321,27 @@ App.ItemListView = Em.View.extend({
 
     fadeOut: function() {
         this.$().css('opacity', 0);
+        var _self = this;
+        setTimeout(function(){_self.set('isVisible', false)},500);
     },
 
     fadeIn: function() {
-        this.$().css('opacity', 1);
+        this.set('isVisible', true);
+        var _self = this;
+        setTimeout(function(){_self.$().css('opacity', 1)},500);
+
     },
 
     didInsertElement: function() {
         var e = this.$();
-
+        // Leaving isAnimated as 'false' means that faster CSS transitions defined in style/less will be used.
         e.masonry({
             itemSelector: '.item',
-            isAnimated: true,
+            isAnimated: false,
             isFitWidth: true,
             columnWidth: 10,
             animationOptions: {
-                duration: 200
+                duration: 200 // These apply only if isAnimated is enabled
             }
         });
     } // end didInsertElement()

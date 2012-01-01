@@ -10,11 +10,20 @@
 @col5Width: @colBaseWidth + 400px;
 
 body {
-height: 100%;
-width: 100;
+    padding-top:64px;
+    height: 100%;
+    width: 100;
 }
 
-h1.app-name {
+.topbar {
+    //background: lighten(@blue, 30%);
+    background: white;
+    height: 60px;
+    border: 1px solid rgba(0,0,0,.3);
+    //.box-shadow(0 3px 7px rgba(0,0,0,0.3));
+}
+
+.topbar h1 {
     font-family: Baskerville-BoldItalic;
     font-weight: normal;
     text-shadow: rgba(0, 0, 0, 0.7) 0 -1px 1px;
@@ -23,9 +32,11 @@ h1.app-name {
     color: @grayLight;
     line-height: @baseline * 3;
 }
+
 .item-list {
     -webkit-transition: opacity 1s linear;
 }
+
 /* Masonry only works if items are floated */
 .item {
     float: left;
@@ -48,42 +59,40 @@ h1.app-name {
     padding-left: 15%;
     max-width: 85%;
 }
-
+/*
 .modal-footer {
     position: fixed;
-    bottom: 0px;
-    width: 97%;
+    bottom: 37px;
+    width: 93%;
 }
+*/
 
 .modal-body {
-    height:80%;
+    height:85%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     padding-left: 15%;
     padding-right: 15%;
-    padding-bottom: 200px;
+    //padding-bottom: 200px;
 }
 
 .modal {
 
-        top: 1%;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
+        top: -25%;
+        bottom: -10px;
+        left: 10px;
+        right: -10px;
         margin: 0 0 0 0;
-        width:100%;
-        height:100%;
+        width:97%;
+        height:80%;
         max-height:100%;
         &.fade {
             .transition(e('opacity .3s linear, top .3s ease-out'));
-            top: 0px;
+            top: -25%;
         }
-        &.fade.in { top: 0px; }
+        &.fade.in { top: 80px; }
 }
 
-.modal.fade.in {
-    top: 0;
-}
 // Capitalize text of Item titles and adjust line spacing.
 h5 {
     line-height: 20px;
@@ -108,11 +117,30 @@ h5 {
     .container-fluid {
         min-width: 720px;
     }
+
+    .modal {
+        height: 750px;
+        width: 746px
+    }
+
+    .modal-body {
+        height:613px;
+    }
+
 }
 
 @media all and (orientation:landscape) {
     .container-fluid {
         min-width: 940px;
+    }
+
+    .modal {
+        height: 494px;
+        width: 1002px;
+    }
+
+    .modal-body {
+        height:357px;
     }
 }
 
