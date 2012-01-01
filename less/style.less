@@ -9,6 +9,11 @@
 @col4Width: @colBaseWidth + 300px;
 @col5Width: @colBaseWidth + 400px;
 
+body {
+height: 100%;
+width: 100;
+}
+
 h1.app-name {
     font-family: Baskerville-BoldItalic;
     font-weight: normal;
@@ -18,13 +23,16 @@ h1.app-name {
     color: @grayLight;
     line-height: @baseline * 3;
 }
-
+.item-list {
+    -webkit-transition: opacity 1s linear;
+}
 /* Masonry only works if items are floated */
 .item {
     float: left;
     margin: 5px;
     padding: 5px;
     background-color: whiteSmoke;
+    -webkit-user-select: none;
 }
 
 .item hr {
@@ -32,6 +40,50 @@ h1.app-name {
     margin-bottom: 5px;
 }
 
+.selected {
+    background-color: @blue !important;
+    color: white;
+}
+.modal-header {
+    padding-left: 15%;
+    max-width: 85%;
+}
+
+.modal-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 97%;
+}
+
+.modal-body {
+    height:80%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-bottom: 200px;
+}
+
+.modal {
+
+        top: 1%;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: 0 0 0 0;
+        width:100%;
+        height:100%;
+        max-height:100%;
+        &.fade {
+            .transition(e('opacity .3s linear, top .3s ease-out'));
+            top: 0px;
+        }
+        &.fade.in { top: 0px; }
+}
+
+.modal.fade.in {
+    top: 0;
+}
 // Capitalize text of Item titles and adjust line spacing.
 h5 {
     line-height: 20px;
@@ -51,12 +103,6 @@ h5 {
 .col3 img { max-width: @col3Width; }
 .col4 img { max-width: @col4Width; }
 .col5 img { max-width: @col5Width; }
-
-.modal-body {
-    height:320px;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-}
 
 @media all and (orientation:portrait) {
     .container-fluid {

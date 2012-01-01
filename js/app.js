@@ -156,7 +156,7 @@ App.itemsController  = Em.ArrayController.create({
             dataType: 'json',
             success: function(data){
 
-                console.log('Fetched Items: '+data.items.length);
+                //console.log('Fetched Items: '+data.items.length);
 
                 for (var i=0; i< data.items.length; i++) {
                     _self.pushObject(App.models.Item.create({data: data.items[i]}));
@@ -179,7 +179,12 @@ App.itemModalViewController = Em.Object.create({
             v.append();
         }
         v.set('content', content);
+        App.get('mainView').fadeOut();
         v.show();
+    },
+
+    hideView: function(){
+        App.get('mainView').fadeIn();
     }
 });
 
@@ -192,16 +197,39 @@ EmExt.ModalView = Em.View.extend({
     init: function(){
         this._super();
         this.modal({
-            backdrop: 'static'
+            //backdrop: 'static'
         });
 
-        // TODO Attach event handlers for 'shown' and 'hidden' to disable scrolling.
-        // http://jsbin.com/ikuma4/2/edit#source
-        // http://stackoverflow.com/questions/3656592/programmatically-disable-scrolling
     },
 
     didInsertElement: function(){
-        this.set('elementInserted', true)
+        this.set('elementInserted', true);
+
+        // This is an attempt to attach event handlers for 'shown' and 'hidden' to disable scrolling.
+        // http://jsbin.com/ikuma4/2/edit#source
+        // http://stackoverflow.com/questions/3656592/programmatically-disable-scrolling
+        /*
+        var _self = this;
+        this.$().bind('shown', function(){
+            var top = $(window).scrollTop();
+            var left = $(window).scrollLeft();
+
+            var e = _self.$();
+            console.log('shown '+top+':'+left);
+            $('body').css('overflow', 'hidden');
+            $(window).scroll(function(){
+                $(this).scrollTop(top).scrollLeft(left);
+            });
+        });
+        this.$().bind('hidden', function(){
+            console.log('hidden');
+            $('body').css('overflow', 'auto');
+            $(window).unbind('scroll');
+        });
+        */
+        this.$().bind('hide', function(){
+           App.itemModalViewController.hideView();
+        });
     },
 
     toggle: function(){
@@ -246,21 +274,19 @@ App.ItemModalView = EmExt.ModalView.extend({
 
 // TODO Be more discriminating with touches (eg. tell apart a scroll/swipe from a tap.
 App.ItemSummaryView = Em.View.extend({
-    classNameBindings:['columnType'],
+    classNameBindings:['columnType', 'selected'],
+    selected: false,
 
     columnType: function() {
         //var next = 'col'+((Math.abs(App.hashTools.hash(this.getPath('content.id')) % 3)+2));
         //var next = 'span'+((Math.abs(App.hashTools.hash(this.getPath('content.id')) % 3)+1)*3);
         //var next = 'span'+App.utils.nextColumn();
         var next='span5';
-        console.log(next);
         return next;
     }.property('content').cacheable(),
     didInsertElement: function() {
         var parentEl = this.get('parentView').$();
-        //var parentEl = $('.item-list');
         var myEl = this.$();
-        console.log(myEl.attr('id'));
         parentEl.masonry('appended', myEl);
 
     },
@@ -269,24 +295,41 @@ App.ItemSummaryView = Em.View.extend({
         App.itemModalViewController.showView(this.get('content'));
     },
     // TODO Consider using Press gestures instead.
-    tapEnd: function(recognizer){
-        Em.Logger.log("Tap!");
+    pressOptions: {
+        pressPeriodThreshold: 100
+    },
+    touchStart: function(){
+        this.set('selected', true);
+        var self = this;
+        window.setTimeout(function(){
+            self.set('selected', false);
+        }, 100);
+        return true;
+    },
+
+    pressEnd: function(recognizer){
+        this.set('selected', false);
         this.click();
     }
 });
 
 
-// TODO Switch to Isotope as it might handle layouts more cleanly.
-
 App.ItemListView = Em.View.extend({
     templateName: 'item-list',
     classNames:['item-list centered'],
     // Apply the masonry layout once the element is inserted into the DOM.
-    didInsertElement: function() {
 
+    fadeOut: function() {
+        this.$().css('opacity', 0);
+    },
+
+    fadeIn: function() {
+        this.$().css('opacity', 1);
+    },
+
+    didInsertElement: function() {
         var e = this.$();
 
-        console.log("masonry: "+e.attr('id'));
         e.masonry({
             itemSelector: '.item',
             isAnimated: true,

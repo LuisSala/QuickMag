@@ -2468,6 +2468,10 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 }
+body {
+  height: 100%;
+  width: 100;
+}
 h1.app-name {
   font-family: Baskerville-BoldItalic;
   font-weight: normal;
@@ -2477,16 +2481,65 @@ h1.app-name {
   color: #bfbfbf;
   line-height: 54px;
 }
+.item-list {
+  -webkit-transition: opacity 1s linear;
+}
 /* Masonry only works if items are floated */
 .item {
   float: left;
   margin: 5px;
   padding: 5px;
   background-color: whiteSmoke;
+  -webkit-user-select: none;
 }
 .item hr {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+.selected {
+  background-color: #049cdb !important;
+  color: white;
+}
+.modal-header {
+  padding-left: 15%;
+  max-width: 85%;
+}
+.modal-footer {
+  position: fixed;
+  bottom: 0px;
+  width: 97%;
+}
+.modal-body {
+  height: 80%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-bottom: 200px;
+}
+.modal {
+  top: 1%;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: 0 0 0 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -ms-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: 0px;
+}
+.modal.fade.in {
+  top: 0px;
+}
+.modal.fade.in {
+  top: 0;
 }
 h5 {
   line-height: 20px;
@@ -2524,11 +2577,6 @@ h5 {
 }
 .col5 img {
   max-width: 636px;
-}
-.modal-body {
-  height: 320px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 }
 @media all and (orientation: portrait) {
   .container-fluid {
