@@ -327,6 +327,8 @@ App.ItemListView = Em.View.extend({
 
     fadeIn: function() {
         this.set('isVisible', true);
+        // Force Masonry to refresh/reanimate, important if orientation changes while modal is open;
+        this.$().masonry('reload');
         var _self = this;
         setTimeout(function(){_self.$().css('opacity', 1)},500);
 
