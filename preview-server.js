@@ -60,6 +60,7 @@ app.use('/_proxy/', function(req, res, next){
 
           req.url = url_parts.path;
           req.headers['host']=url_parts.host;  // Reset the host header to the destination host.
+          console.log(util.inspect(req.headers));
           proxy.proxyRequest(req, res);
 
 	} // end if-else
