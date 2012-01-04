@@ -54,15 +54,13 @@ app.use('/_proxy/', function(req, res, next){
               }
           });
 
-          //var proxy = new httpProxy.RoutingProxy();
           // Rewrite the URL on the request to remove the /proxy/ prefix.
           // Then pass along to the proxy.
 
-          //req.url = url_parts.path;
-          req.url = (url_parts.path ? url_parts.path : url_parts.pathname)
+          // Heroku's version of http-proxy requires the use of 'pathname' instead of 'path'
+          req.url = (url_parts.path ? url_parts.path : url_parts.pathname);
           req.headers['host']=url_parts.host;  // Reset the host header to the destination host.
-          console.log(util.inspect(req.headers));
-          console.log(util.inspect(url_parts));
+
           proxy.proxyRequest(req, res);
 
 	} // end if-else
