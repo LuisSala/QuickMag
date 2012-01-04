@@ -143,8 +143,8 @@ App.itemsController  = Em.ArrayController.create({
         var proxy = App.CONFIG.proxy;
         var prefix = proxy.enabled ? proxy.endpoint : '';
 
-        var login = (alf.username && alf.password) ? alf.username + ':' + alf.password + '@' : '';
-
+        //var login = (alf.username && alf.password) ? alf.username + ':' + alf.password + '@' : '';
+        var login = "";
         var url = prefix + alf.protocol + '://' + login + alf.host + ':' + alf.port + alf.service_base_path + '/slingshot/doclib2/doclist/' + alf.content_model + '/site/' + alf.site_name +
             "/documentLibrary/" + alf.content_folder;
 
