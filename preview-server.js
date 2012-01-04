@@ -59,7 +59,7 @@ app.use('/_proxy/', function(req, res, next){
           // Then pass along to the proxy.
 
           //req.url = url_parts.path;
-          req.url = url_parts.path;
+          req.url = (url_parts.path ? url_parts.path : url_parts.pathname)
           req.headers['host']=url_parts.host;  // Reset the host header to the destination host.
           console.log(util.inspect(req.headers));
           console.log(util.inspect(url_parts));
