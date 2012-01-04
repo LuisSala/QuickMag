@@ -2604,7 +2604,7 @@ h5 {
 .col5 img {
   max-width: 636px;
 }
-@media all and (orientation: portrait) {
+@media all and (orientation:portrait) {
   .container-fluid {
     min-width: 720px;
   }
@@ -2616,7 +2616,7 @@ h5 {
     height: 600px;
   }
 }
-@media all and (orientation: landscape) {
+@media all and (orientation:landscape) {
   .container-fluid {
     min-width: 940px;
   }

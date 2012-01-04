@@ -1,11 +1,11 @@
 {
   "author": "Luis Sala <luis.sala@alfresco.com> (http://alfresco.com)",
-  "name": "QuickZine",
+  "name": "QuickMag",
   "description": "Mobile magazine app for Alfresco.",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://luissala@bitbucket.org/luissala/quickzine.git"
+    "url": "git://github.com/LuisSala/QuickMag.git"
   },
   "main": "preview-server.js",
   "engines": {

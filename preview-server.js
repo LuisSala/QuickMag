@@ -14,7 +14,7 @@ var app = express.createServer();
 */
 
 
-var APP_PORT = 3000;
+var APP_PORT = process.env.PORT || 3000;
 
 console.log('\n========================================\n')
 console.log('Development Preview Server\nDO NOT USE IN PRODUCTION!!!\n');
