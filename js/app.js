@@ -54,7 +54,7 @@ App.CONFIG = {
     alfresco: {
         username: 'admin',
         password: 'admin',
-        host: 'x.local',
+        host: 'home.sala.us',
         port: 8080,
         protocol: 'http',
         service_base_path: '/alfresco/s', // use the form '/alfresco/service
