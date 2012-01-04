@@ -42,7 +42,7 @@ app.use('/_proxy/', function(req, res, next){
     	res.write(err);
     	res.end();
   	} else {
-          console.log("PROXY Request: " + url_parts.hostname + ", port: " + (url_parts.port ? url_parts.port : 80) + ", path: " + url_parts.path);
+          console.log("PROXY Request: " + url_parts.hostname + ", port: " + (url_parts.port ? url_parts.port : 80) + ", path: " + (url_parts.path ? url_parts.path : url_parts.pathname));
 
           // Create and configure the proxy.
 
