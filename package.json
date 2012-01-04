@@ -15,7 +15,7 @@
 	"lib" : "lib"
   },
   "dependencies": {
-	"http-proxy": ">=0.8.0",
+	"http-proxy": "latest",
 	"less": ">=1.1.6",
 	"express": ">=2.5.2"
   },
