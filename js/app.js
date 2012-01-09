@@ -299,17 +299,17 @@ App.ItemSummaryView = Em.View.extend({
     pressOptions: {
         pressPeriodThreshold: 100
     },
-    touchStart: function(){
+    /*touchStart: function(){
         this.set('selected', true);
         var self = this;
         window.setTimeout(function(){
             self.set('selected', false);
         }, 100);
         return true;
-    },
+    }, */
 
     pressEnd: function(recognizer){
-        this.set('selected', false);
+        //this.set('selected', false);
         this.click();
     }
 });
