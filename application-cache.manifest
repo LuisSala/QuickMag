@@ -1,0 +1,32 @@
+CACHE MANIFEST
+
+# QuickMag App Cache Manifest
+# version: 0.0.1
+/
+index.html
+
+css/style.css
+
+js/app.js
+js/libs/bootstrap/bootstrap-modal.min.js
+js/libs/ember-0.9.3.min.js
+js/libs/ember-touch.min.js
+js/libs/jquery-1.6.1.min.js
+js/libs/transformjs.1.0.beta.2.min.js
+
+
+# Images & Icons
+
+img/bluepaper.jpg
+img/goovepaper.png
+
+favicon.ico
+apple-touch-icon.png
+apple-touch-icon-precomposed.png
+apple-touch-icon-72x72-precomposed.png
+apple-touch-icon-57x57-precomposed.png
+apple-touch-icon-114x114-precomposed.png
+
+NETWORK:
+# Whitelist the entire Internet
+*
