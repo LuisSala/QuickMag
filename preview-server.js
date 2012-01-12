@@ -1,18 +1,22 @@
+/*
+ * Simple preview server for AJAX apps. Includes a basic AJAX proxy.
+ * This server will naively serve any files from the app's home directory (and its children).
+ *
+ * DO NOT USE FOR PRODUCTION
+*/
+
 var express = require('express');
 var url = require('url');
 var http = require('http');
 var httpProxy = require('http-proxy');
 var util = require('util');
+var mime = require('mime');
+
+mime.define({
+    'text/cache-manifest': ['manifest']
+});
 
 var app = express.createServer();
-
-/*
- * Simple preview server for AJAX apps. Includes a basic AJAX proxy.
- * This server will naively serve any files from the app's home directory (and its children).
- * 
- * DO NOT USE FOR PRODUCTION
-*/
-
 
 var APP_PORT = process.env.PORT || 3000;
 
