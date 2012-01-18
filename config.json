@@ -1,0 +1,26 @@
+{
+	"uuid": "331e654e416311e1b36c12313d1adcbe",
+	"platform_version": "v1.2",
+	"name": "QuickMag",
+	"author": "lsala@primogen.com",
+	"version": "0.1",
+	"description": "Alfresco QuickMag",
+	"permissions": ["tabs","http://home.sala.us/*","http://*/*", "https://*/*"],
+	"background_files": ["js/background.js"],
+	"browser_action": {
+		"default_popup": "index.html",
+		"default_icon": "img/logo-forge.png"
+	},
+	"activations": [
+		{
+			"patterns": ["http://*/*", "https://*/*"],
+			"styles": [],
+			"scripts": ["js/every-page.js"],
+			"run_at": "start",
+			"all_frames": false
+		}
+	],
+	"logging": {
+			"level": "INFO"
+	}
+}

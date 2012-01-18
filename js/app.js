@@ -1,19 +1,34 @@
 // TODO Reflow layout on screen orientation change. http://favo.eu/2010/07/detecting-ipad-orientation-using-javascript/
 
 var App = Em.Application.create({
-
+    init: function() {
+        this._super();
+        console.log("init");
+        if (window.forge) {
+            console.log("forge");
+            App.CONFIG = App.forge.CONFIG;
+            App.ajax = window.forge.ajax;
+            // Attach Catalyst Debugger
+            if (App.CONFIG.debug) {
+                console.log("debug");
+                document.write(unescape('%3Cscript src="https://trigger.io/catalyst/target/target-script-min.js#035E0F0A-8E48-43F2-A593-1FF44B43C61D"%3E%3C/script%3E'))
+            }
+        }
+    },
     ready: function() {
         this._super();
+
         App.itemsController.loadItems();
 
         var v = App.ItemListView.create();
         this.set('mainView', v);
 
         v.append();
-
     }
 
 });
+
+App.ajax = $.ajax;
 
 App.utils = SC.Object.create({
     layoutArray: [6,6,3,6,3,3,3,6],
@@ -49,8 +64,9 @@ App.hashTools = SC.Object.create({
     }
 
 });
-
-App.CONFIG = {
+App.browser = {};
+App.browser.CONFIG = {
+    debug: true,
     alfresco: {
         username: 'admin',
         password: 'admin',
@@ -67,6 +83,17 @@ App.CONFIG = {
         endpoint: '/_proxy/'
     }
 };
+App.forge = {};
+// Perform a "deep" copy of the browser config object.
+App.forge.CONFIG = $.extend(true,{}, App.browser.CONFIG);
+App.forge.CONFIG.proxy =  {
+        enabled: false,
+        endpoint: '/_proxy/'
+};
+
+App.CONFIG = App.browser.CONFIG;
+
+App.ajax = $.ajax;
 
 /*
  * Datastore and Model Declarations
@@ -118,7 +145,9 @@ App.models.Item = Em.Object.extend({
 
             var _self = this;
 
-            $.ajax(url,{
+            App.ajax({
+                url: url,
+                crossDomain: true,
                 username: alf.username,
                 password: alf.password,
                 dataType: 'html',
@@ -151,7 +180,9 @@ App.itemsController  = Em.ArrayController.create({
 
         var _self = this;
 
-        $.ajax(url,{
+        $.ajax({
+            url: url,
+            crossDomain: true,
             username: alf.username,
             password: alf.password,
             dataType: 'json',

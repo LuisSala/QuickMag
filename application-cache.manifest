@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
 # QuickMag App Cache Manifest
-# version: 0.0.1
+# version: 0.0.10
 /
 index.html
 
@@ -20,6 +20,8 @@ js/libs/transformjs.1.0.beta.2.min.js
 img/bluepaper.jpg
 img/goovepaper.png
 img/app-splash.jpg
+img/app-splash-ipad-portrait.jpg
+img/app-splash-ipad-landscape.jpg
 
 favicon.ico
 apple-touch-icon.png
