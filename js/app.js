@@ -1,20 +1,7 @@
 // TODO Reflow layout on screen orientation change. http://favo.eu/2010/07/detecting-ipad-orientation-using-javascript/
 
 var App = Em.Application.create({
-    init: function() {
-        this._super();
-        console.log("init");
-        if (window.forge) {
-            console.log("forge");
-            App.CONFIG = App.forge.CONFIG;
-            App.ajax = window.forge.ajax;
-            // Attach Catalyst Debugger
-            if (App.CONFIG.debug) {
-                console.log("debug");
-                document.write(unescape('%3Cscript src="https://trigger.io/catalyst/target/target-script-min.js#035E0F0A-8E48-43F2-A593-1FF44B43C61D"%3E%3C/script%3E'))
-            }
-        }
-    },
+
     ready: function() {
         this._super();
         console.log("init");
@@ -25,7 +12,7 @@ var App = Em.Application.create({
             // Attach Catalyst Debugger
             if (App.CONFIG.debug) {
                 console.log("debug");
-                document.write(unescape('%3Cscript src="https://trigger.io/catalyst/target/target-script-min.js#035E0F0A-8E48-43F2-A593-1FF44B43C61D"%3E%3C/script%3E'))
+                //document.write(unescape('%3Cscript src="https://trigger.io/catalyst/target/target-script-min.js#035E0F0A-8E48-43F2-A593-1FF44B43C61D"%3E%3C/script%3E'));
             }
         }
         App.itemsController.loadItems();
@@ -96,6 +83,7 @@ App.browser.CONFIG = {
 App.forge = {};
 // Perform a "deep" copy of the browser config object.
 App.forge.CONFIG = $.extend(true,{}, App.browser.CONFIG);
+App.forge.CONFIG.alfresco.port = 80;
 App.forge.CONFIG.proxy =  {
         enabled: false,
         endpoint: '/_proxy/'
