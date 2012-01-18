@@ -17,7 +17,17 @@ var App = Em.Application.create({
     },
     ready: function() {
         this._super();
-
+        console.log("init");
+        if (window.forge) {
+            console.log("forge");
+            App.CONFIG = App.forge.CONFIG;
+            App.ajax = window.forge.ajax;
+            // Attach Catalyst Debugger
+            if (App.CONFIG.debug) {
+                console.log("debug");
+                document.write(unescape('%3Cscript src="https://trigger.io/catalyst/target/target-script-min.js#035E0F0A-8E48-43F2-A593-1FF44B43C61D"%3E%3C/script%3E'))
+            }
+        }
         App.itemsController.loadItems();
 
         var v = App.ItemListView.create();
