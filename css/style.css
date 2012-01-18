@@ -2472,10 +2472,10 @@ body {
   padding-top: 64px;
   height: 100%;
   width: 100;
-  background: url('/img/goovepaper.png') repeat fixed center;
+  background: url('../img/goovepaper.png') repeat fixed center;
 }
 .topbar {
-  background-image: url('/img/bluepaper.jpg');
+  background-image: url('../img/bluepaper.jpg');
   background-repeat: repeat-x;
   height: 60px;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -2613,7 +2613,7 @@ h5 {
 .col5 img {
   max-width: 636px;
 }
-@media all and (orientation:portrait) {
+@media all and (orientation: portrait) {
   .container-fluid {
     min-width: 720px;
   }
@@ -2625,7 +2625,7 @@ h5 {
     height: 600px;
   }
 }
-@media all and (orientation:landscape) {
+@media all and (orientation: landscape) {
   .container-fluid {
     min-width: 940px;
   }
