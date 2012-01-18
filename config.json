@@ -11,6 +11,12 @@
 		"default_popup": "index.html",
 		"default_icon": "img/apple-touch-icon.png"
 	},
+	"launch_images": {
+	      "iphone": "img/app-splash-ipad-portrait.png",
+	      "iphone-retina": "img/app-splash-ipad-portrait.png",
+	      "ipad": "img/app-splash-ipad-portrait.png",
+	      "ipad-landscape": "img/app-splash-ipad-landscape.png"
+	},
 	"activations": [
 		{
 			"patterns": ["http://*/*", "https://*/*"],
